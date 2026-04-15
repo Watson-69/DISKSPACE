@@ -13,6 +13,8 @@ A lightweight, high-performance disk space analyzer for Windows and macOS that p
   - [Windows Installation](#windows-installation)
   - [macOS Installation](#macos-installation)
 - [Usage](#-usage)
+- [Customization](#-customization)
+  - [Changing Colors](#changing-colors)
 - [Technical Details](#-technical-details)
 - [Configuration](#-configuration)
 - [Limitations](#-limitations)
@@ -30,6 +32,7 @@ A lightweight, high-performance disk space analyzer for Windows and macOS that p
 - **File Counter** - Tracks total number of files processed during scanning
 - **Epilepsy-Friendly Animation** - Adjustable boot sequence timing
 - **Cross-Platform Support** - Works on both Windows and macOS
+- **Customizable Colors** - Easily modify console colors to your preference
 
 ## 📸 Example Output
 
@@ -149,7 +152,7 @@ gcc-14 -o disk_analyzer disk_analyzer.c
 ### Windows Users
 1. Launch the application
 2. Enter the target path (e.g., `C:\` or `C:\Users\YourName\Documents`)
-3. Select display unit (`1` for MB, `2` for GB)
+3. Select display unit (`1` for MB, `2` for GB`)
 4. Wait for scanning to complete
 5. Review the analysis
 6. Press Enter twice to exit
@@ -157,10 +160,166 @@ gcc-14 -o disk_analyzer disk_analyzer.c
 ### macOS Users
 1. Launch from Terminal: `./disk_analyzer`
 2. Enter the target path (e.g., `/` or `/Users/YourName/Documents`)
-3. Select display unit (`1` for MB, `2` for GB)
+3. Select display unit (`1` for MB, `2` for GB`)
 4. Wait for scanning to complete
 5. Review the analysis
 6. Press Enter twice to exit
+
+## 🎨 Customization
+
+### Changing Colors
+
+You can easily customize the colors used throughout the application by modifying the color codes in the source file.
+
+#### Windows Color Codes
+
+Windows uses numeric values (0-15) for colors in `SetConsoleTextAttribute()`:
+
+| Code | Color | Code | Bright Color |
+|------|-------|------|--------------|
+| 0 | Black | 8 | Gray |
+| 1 | Blue | 9 | Bright Blue |
+| 2 | Green | 10 | Bright Green |
+| 3 | Cyan | 11 | Bright Cyan |
+| 4 | Red | 12 | Bright Red |
+| 5 | Magenta | 13 | Bright Magenta |
+| 6 | Yellow | 14 | Bright Yellow |
+| 7 | White | 15 | Bright White |
+
+**Where to change colors in the code:**
+
+```c
+// BOOT ANIMATION COLORS
+set_color(i % 2 == 0 ? 9 : 15);  // Change 9 and 15 to your preferred colors
+// Example: set_color(i % 2 == 0 ? 11 : 13);  // Cyan and Magenta
+
+// INPUT PROMPT COLOR
+set_color(7);  // White - change to any color 0-15
+
+// HEADER COLOR
+set_color(11);  // Bright Cyan - change to any color 0-15
+
+// FOLDER SIZE COLOR
+set_color(14);  // Bright Yellow - change to any color 0-15
+
+// DRIVE BAR COLORS
+set_color(12);  // Bright Red (Critical >90%)
+set_color(14);  // Bright Yellow (Warning 75-90%)
+set_color(10);  // Bright Green (Normal <75%)
+set_color(8);   // Gray (Empty space indicator)
+
+// ADVICE COLORS
+set_color(12);  // Bright Red (Critical warning)
+set_color(14);  // Bright Yellow (Caution)
+set_color(10);  // Bright Green (Good status)
+```
+
+**Example Windows Color Customization:**
+```c
+// ORIGINAL
+set_color(i % 2 == 0 ? 9 : 15);  // Blue and White alternating
+
+// CUSTOMIZED - Purple and Cyan theme
+set_color(i % 2 == 0 ? 13 : 11);  // Magenta and Cyan alternating
+
+// ORIGINAL HEADER
+set_color(11);  // Bright Cyan
+
+// CUSTOMIZED HEADER - Golden
+set_color(6);   // Yellow (non-bright version)
+
+// ORIGINAL DRIVE BAR
+if (percent_used > 90) set_color(12);      // Red
+else if (percent_used > 75) set_color(14); // Yellow
+else set_color(10);                         // Green
+
+// CUSTOMIZED DRIVE BAR - Purple theme
+if (percent_used > 90) set_color(13);      // Magenta
+else if (percent_used > 75) set_color(5);  // Dark Magenta
+else set_color(3);                          // Cyan
+```
+
+#### macOS/Linux ANSI Color Codes
+
+For macOS adaptation, use ANSI escape codes:
+
+| Code | Color | Code | Bright Color |
+|------|-------|------|--------------|
+| \033[30m | Black | \033[90m | Bright Black |
+| \033[31m | Red | \033[91m | Bright Red |
+| \033[32m | Green | \033[92m | Bright Green |
+| \033[33m | Yellow | \033[93m | Bright Yellow |
+| \033[34m | Blue | \033[94m | Bright Blue |
+| \033[35m | Magenta | \033[95m | Bright Magenta |
+| \033[36m | Cyan | \033[96m | Bright Cyan |
+| \033[37m | White | \033[97m | Bright White |
+| \033[0m | Reset | | |
+
+**Example ANSI Color Implementation for macOS:**
+```c
+void set_color(const char* color_code) {
+    printf("%s", color_code);
+}
+
+// Usage examples:
+set_color("\033[34m");  // Blue text
+set_color("\033[91m");  // Bright Red text
+set_color("\033[0m");   // Reset to default
+
+// For animated boot sequence:
+set_color(i % 2 == 0 ? "\033[94m" : "\033[97m");  // Bright Blue / Bright White
+
+// For drive bar:
+if (percent_used > 90) set_color("\033[91m");      // Bright Red
+else if (percent_used > 75) set_color("\033[93m"); // Bright Yellow
+else set_color("\033[92m");                        // Bright Green
+```
+
+### Color Scheme Examples
+
+#### 🟢 Matrix Theme (Green/Black)
+```c
+set_color(i % 2 == 0 ? 10 : 2);  // Bright Green / Dark Green alternating
+set_color(10);                    // Headers in Bright Green
+set_color(10);                    // Folder size in Bright Green
+// Drive Bar:
+if (percent_used > 90) set_color(10);      // Bright Green
+else if (percent_used > 75) set_color(2);  // Dark Green
+else set_color(10);                         // Bright Green
+```
+
+#### 🔴 Neon Theme (Red/Yellow)
+```c
+set_color(i % 2 == 0 ? 12 : 14);  // Bright Red / Bright Yellow alternating
+set_color(14);                     // Headers in Bright Yellow
+set_color(12);                     // Folder size in Bright Red
+// Drive Bar:
+if (percent_used > 90) set_color(12);      // Bright Red
+else if (percent_used > 75) set_color(6);  // Dark Yellow
+else set_color(14);                         // Bright Yellow
+```
+
+#### 🔵 Ocean Theme (Blue/Cyan)
+```c
+set_color(i % 2 == 0 ? 9 : 11);  // Bright Blue / Bright Cyan alternating
+set_color(11);                    // Headers in Bright Cyan
+set_color(9);                     // Folder size in Bright Blue
+// Drive Bar:
+if (percent_used > 90) set_color(1);       // Dark Blue
+else if (percent_used > 75) set_color(9);  // Bright Blue
+else set_color(11);                         // Bright Cyan
+```
+
+#### 🟣 Sunset Theme (Purple/Magenta)
+```c
+set_color(i % 2 == 0 ? 13 : 12);  // Bright Magenta / Bright Red alternating
+set_color(13);                     // Headers in Bright Magenta
+set_color(5);                      // Folder size in Dark Magenta
+// Drive Bar:
+if (percent_used > 90) set_color(13);      // Bright Magenta
+else if (percent_used > 75) set_color(12); // Bright Red
+else set_color(5);                          // Dark Magenta
+```
 
 ## 🔬 Technical Details
 
@@ -174,15 +333,16 @@ gcc-14 -o disk_analyzer disk_analyzer.c
 | Size Calculation | 64-bit integers | 64-bit integers |
 | Sleep Function | Sleep (milliseconds) | usleep (microseconds) |
 
-### Color Coding System
+### Default Color Coding System
 
 | Color | Meaning |
 |-------|---------|
-| 🟢 Green | Normal usage (< 75%) |
-| 🟡 Yellow | Warning level (75-90%) |
-| 🔴 Red | Critical level (> 90%) |
-| 🔵 Blue | Information headers |
-| ⚪ White | Standard text |
+| 🟢 Green (10) | Normal usage (< 75%) |
+| 🟡 Yellow (14) | Warning level (75-90%) |
+| 🔴 Red (12) | Critical level (> 90%) |
+| 🔵 Cyan (11) | Information headers |
+| ⚪ White (7) | Standard text |
+| 🔵 Blue/White (9/15) | Boot animation |
 
 ### Performance Considerations
 
@@ -257,6 +417,7 @@ Contributions are welcome! Here's how you can help:
 - [ ] File type categorization
 - [ ] Largest files identification
 - [ ] GUI version
+- [ ] Color theme presets
 
 ## 📝 License
 
