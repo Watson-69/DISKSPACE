@@ -5,7 +5,7 @@ A lightweight, high-performance disk space analyzer for Windows and macOS that p
 ![C](https://img.shields.io/badge/C-00599C?style=flat-square&logo=c&logoColor=white)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=windows&logoColor=white)
 ![macOS](https://img.shields.io/badge/macOS-000000?style=flat-square&logo=apple&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)]((https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Watson-69/DISKSPACE?tab=MIT-1-ov-file))
 
 ## 📋 Table of Contents
 - [Features](#-features)
