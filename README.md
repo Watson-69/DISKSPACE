@@ -5,7 +5,7 @@ A lightweight, high-performance disk space analyzer for Windows and macOS that p
 ![C](https://img.shields.io/badge/C-00599C?style=flat-square&logo=c&logoColor=white)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=windows&logoColor=white)
 ![macOS](https://img.shields.io/badge/macOS-000000?style=flat-square&logo=apple&logoColor=white)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)]((https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Watson-69/DISKSPACE?tab=MIT-1-ov-file))
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Watson-69/DISKSPACE?tab=MIT-1-ov-file#readme)
 
 ## 📋 Table of Contents
 - [Features](#-features)
@@ -43,7 +43,7 @@ A lightweight, high-performance disk space analyzer for Windows and macOS that p
 
    [ BOOTING SYSTEM ... ]
 
-Enter Drive or Folder Path: /Users/Watson/Documents
+Enter Drive or Folder Path: C:\Users\Watson\Documents
 View size in (1: MB, 2: GB): 2
 
 [SCANNING] Analyzing files, please wait...
@@ -54,7 +54,7 @@ View size in (1: MB, 2: GB): 2
               ANALYSIS COMPLETE :)
 ==================================================
 
-Target: /Users/Watson/Documents
+Target: C:\Users\Watson\Documents
 Files Found: 15427
 
 >> CURRENT FOLDER SIZE: 45.32 GB
@@ -95,55 +95,37 @@ cl disk_analyzer.c /Fe:disk_analyzer.exe user32.lib kernel32.lib
 #### Prerequisites
 - macOS (Any recent version)
 - GCC or Clang compiler (Xcode Command Line Tools)
-- Homebrew (optional, for GCC installation)
 
-#### Code Modification for macOS
+#### macOS Compatibility
 
-**IMPORTANT:** Before compiling on macOS, change the header include at the top of the source file:
+This project includes a separate macOS-compatible source file. Instead of modifying the Windows version, simply use the provided alternate file.
 
-**Change this line:**
-```c
-#include <windows.h> // FOR MAC USERS use <sys/mount.h>
-```
+**Alternate macOS File:** `MAC.c`
 
-**To this:**
-```c
-#include <sys/mount.h> // FOR MAC USERS
-```
-
-#### Additional macOS Modifications Required
-
-The source code uses Windows-specific functions that need to be adapted for macOS:
-
-1. **Replace `SetConsoleTextAttribute`** - Use ANSI escape codes for colors
-2. **Replace `GetDiskFreeSpaceEx`** - Use `statvfs()` from `<sys/statvfs.h>`
-3. **Replace `FindFirstFile/FindNextFile`** - Use POSIX `opendir()/readdir()` from `<dirent.h>`
-4. **Replace `Sleep()`** - Use `usleep()` from `<unistd.h>`
-5. **Replace `GetStdHandle`** - Not needed with ANSI escape codes
+The `MAC.c` file contains all necessary modifications for macOS, including:
+- ANSI escape codes for colors
+- `statvfs()` for disk space queries
+- POSIX `opendir()`/`readdir()` for directory scanning
+- `usleep()` for animation timing
 
 #### Compilation on macOS
 
-**Using GCC:**
+**Using the alternate MAC.c file:**
 ```bash
-gcc -o disk_analyzer disk_analyzer.c
+gcc -o disk_analyzer MAC.c
 ```
 
 **Using Clang:**
 ```bash
-clang -o disk_analyzer disk_analyzer.c
+clang -o disk_analyzer MAC.c
 ```
 
-**Installing GCC via Homebrew (if needed):**
-```bash
-brew install gcc
-gcc-14 -o disk_analyzer disk_analyzer.c
-```
-
-### Quick Start (Both Platforms)
-1. Save the source code as `disk_analyzer.c`
-2. Make the platform-specific modifications above
-3. Compile using the appropriate command for your OS
-4. Run the executable:
+### Quick Start
+1. Save the source code:
+   - Windows: `disk_analyzer.c`
+   - macOS: `MAC.c`
+2. Compile using the appropriate command for your OS
+3. Run the executable:
    - Windows: `disk_analyzer.exe`
    - macOS: `./disk_analyzer`
 
@@ -152,7 +134,7 @@ gcc-14 -o disk_analyzer disk_analyzer.c
 ### Windows Users
 1. Launch the application
 2. Enter the target path (e.g., `C:\` or `C:\Users\YourName\Documents`)
-3. Select display unit (`1` for MB, `2` for GB`)
+3. Select display unit (`1` for MB, `2` for GB)
 4. Wait for scanning to complete
 5. Review the analysis
 6. Press Enter twice to exit
@@ -160,7 +142,7 @@ gcc-14 -o disk_analyzer disk_analyzer.c
 ### macOS Users
 1. Launch from Terminal: `./disk_analyzer`
 2. Enter the target path (e.g., `/` or `/Users/YourName/Documents`)
-3. Select display unit (`1` for MB, `2` for GB`)
+3. Select display unit (`1` for MB, `2` for GB)
 4. Wait for scanning to complete
 5. Review the analysis
 6. Press Enter twice to exit
@@ -239,9 +221,9 @@ else if (percent_used > 75) set_color(5);  // Dark Magenta
 else set_color(3);                          // Cyan
 ```
 
-#### macOS/Linux ANSI Color Codes
+#### macOS ANSI Color Codes (for MAC.c)
 
-For macOS adaptation, use ANSI escape codes:
+The `MAC.c` file uses ANSI escape codes for colors:
 
 | Code | Color | Code | Bright Color |
 |------|-------|------|--------------|
@@ -255,7 +237,7 @@ For macOS adaptation, use ANSI escape codes:
 | \033[37m | White | \033[97m | Bright White |
 | \033[0m | Reset | | |
 
-**Example ANSI Color Implementation for macOS:**
+**Example ANSI Color Implementation in MAC.c:**
 ```c
 void set_color(const char* color_code) {
     printf("%s", color_code);
@@ -364,7 +346,7 @@ Modify the value:
 - `15-50` - Fast animation (standard users)
 - `150-200` - Slower animation (recommended for photosensitive users)
 
-**macOS Note:** If using macOS-adapted code with `usleep()`, multiply values by 1000 (e.g., `usleep(15000)`).
+**macOS Note:** In `MAC.c`, the equivalent is `usleep()` with values multiplied by 1000 (e.g., `usleep(15000)`).
 
 ### Changing Default Unit
 
@@ -381,9 +363,8 @@ if (scanf("%d", &choice) != 1) choice = 2;  // 1=MB, 2=GB
 - No symlink/junction handling
 
 ### macOS Limitations
-- Requires code modifications (as documented above)
 - Some system directories may require sudo privileges
-- No native colored console without ANSI support
+- Terminal must support ANSI escape codes (most modern terminals do)
 
 ### Cross-Platform Limitations
 - Console Application only (no GUI)
@@ -410,7 +391,6 @@ Contributions are welcome! Here's how you can help:
 5. **Open a Pull Request**
 
 ### Planned Improvements
-- [ ] Full macOS compatibility (built-in)
 - [ ] Linux support
 - [ ] Export results to CSV/JSON
 - [ ] Multi-threaded scanning for faster analysis
@@ -418,13 +398,19 @@ Contributions are welcome! Here's how you can help:
 - [ ] Largest files identification
 - [ ] GUI version
 - [ ] Color theme presets
+
 ## 🙏 Acknowledgments
+
 - Windows API Documentation
 - Apple Developer Documentation
 - POSIX Standards Documentation
 - Stack Overflow community for optimization techniques
 - All contributors who help improve this tool
+
 ## 📞 Support
+
 Found a bug? Have a feature request? Please open an issue on the repository.
+
 ---
+
 **Made with ❤️ by Watson-69 for the Windows and Mac community**
