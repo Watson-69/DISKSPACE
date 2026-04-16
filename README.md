@@ -1,4 +1,4 @@
-# 💾 PRO DISK ANALYZER
+# 💾 Disk86
 
 A lightweight, high-performance disk space analyzer for Windows and macOS that provides detailed insights into drive usage and folder sizes with a sleek terminal interface.
 
