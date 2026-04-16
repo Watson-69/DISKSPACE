@@ -1,4 +1,4 @@
-#include <windows.h> // FOR MAC USERS use <sys/mount.h>
+#include <windows.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
