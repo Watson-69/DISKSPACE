@@ -66,7 +66,7 @@ Drive Usage: [||||||||||||||......] 78.5%
 
 ADVICE: Everything looks good.
 
-Press Enter twice to exit...
+Press Enter twice to exit... (FOR MAC USERS (Press Enter to exit...)
 ```
 
 ## 🔧 Installation
