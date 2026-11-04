@@ -173,7 +173,7 @@ class DiskAnalyzerApp(tk.Tk):
         self._build_content()
 
         # Footer
-        self.footer = tk.Frame(self.root_frame, height=28, bd=0, highlightthickness=0, bg="#0F172A")
+        self.footer = tk.Frame(self.root_frame, height=30, bd=0, highlightthickness=0, bg="#0F172A")
         self.footer.pack(fill="x", side="bottom")
         self.footer.pack_propagate(False)
         self.footer_lbl = tk.Label(self.footer, text="DriveMetric v2.0 • MIT License • Built in Pure C + Python",
