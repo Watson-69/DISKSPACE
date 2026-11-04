@@ -262,7 +262,7 @@ class DiskAnalyzerApp(tk.Tk):
         tcard.pack(fill="x", pady=(10, 0))
         tk.Label(tcard, text="Target", font=FONT_UI_BOLD).pack(anchor="w")
         tk.Label(tcard, textvariable=self.target_var, font=FONT_MONO).pack(anchor="w", pady=(6, 0))
-        tk.Label(tcard, textvariable=self.total_var, font=FONT_UI).pack(anchor="w", pady=(2, 0))
+        tk.Label(tcard, textvariable=self.total_var, font=FONT_UI).pack(anchor="w", pady=(4, 0))
         self.advice_lbl = tk.Label(tcard, textvariable=self.advice_var, font=FONT_MONO_BOLD, anchor="w", justify="left")
         self.advice_lbl.pack(anchor="w", pady=(10, 0), fill="x")
 
