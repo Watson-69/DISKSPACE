@@ -212,7 +212,7 @@ class DiskAnalyzerApp(tk.Tk):
         self.scan_btn = self._button(s, "▶  Scan Now", self.start_scan, kind="primary")
         self.scan_btn.pack(fill="x", pady=(6, 6), padx=10)
         self.stop_btn = self._button(s, "■  Stop", self.stop_scan, kind="secondary", state="disabled")
-        self.stop_btn.pack(fill="x", pady=(0, 8), padx=10)
+        self.stop_btn.pack(fill="x", pady=(0, 10), padx=10)
 
         self._section(s, "⏳  Progress")
         self.progress = ttk.Progressbar(s, mode="indeterminate")
