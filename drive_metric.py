@@ -264,7 +264,7 @@ class DiskAnalyzerApp(tk.Tk):
         tk.Label(tcard, textvariable=self.target_var, font=FONT_MONO).pack(anchor="w", pady=(4, 0))
         tk.Label(tcard, textvariable=self.total_var, font=FONT_UI).pack(anchor="w", pady=(2, 0))
         self.advice_lbl = tk.Label(tcard, textvariable=self.advice_var, font=FONT_MONO_BOLD, anchor="w", justify="left")
-        self.advice_lbl.pack(anchor="w", pady=(8, 0), fill="x")
+        self.advice_lbl.pack(anchor="w", pady=(10, 0), fill="x")
 
         # Right: Top Folders
         fcard = tk.Frame(charts, padx=12, pady=10, highlightthickness=1)
