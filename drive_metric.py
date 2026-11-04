@@ -270,7 +270,7 @@ class DiskAnalyzerApp(tk.Tk):
         fcard = tk.Frame(charts, padx=12, pady=10, highlightthickness=1)
         fcard.grid(row=0, column=1, sticky="nsew")
         tk.Label(fcard, text="Top Folders", font=FONT_UI_BOLD).pack(anchor="w", pady=(0, 6))
-        self.folders_canvas = tk.Canvas(fcard, height=230, highlightthickness=0, bd=0)
+        self.folders_canvas = tk.Canvas(fcard, height=240, highlightthickness=0, bd=0)
         self.folders_canvas.pack(fill="both", expand=True)
         self.folders_canvas.bind("<Configure>", lambda e: self._draw_folders())
 
