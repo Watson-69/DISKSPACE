@@ -361,7 +361,7 @@ class DiskAnalyzerApp(tk.Tk):
 
     def _kpi_card(self, parent, col, label, var, icon):
         card = tk.Frame(parent, padx=10, pady=8, highlightthickness=1)
-        card.grid(row=0, column=col, padx=4, pady=4, sticky="nsew")
+        card.grid(row=0, column=col, padx=6, pady=4, sticky="nsew")
         tk.Label(card, text=f"{icon}  {label}", font=("Segoe UI", 9)).pack(anchor="w")
         tk.Label(card, textvariable=var, font=FONT_KPI).pack(anchor="w", pady=(4, 0))
 
