@@ -284,7 +284,7 @@ class DiskAnalyzerApp(tk.Tk):
         tcard2 = tk.Frame(lower, padx=12, pady=10, highlightthickness=1)
         tcard2.grid(row=0, column=0, sticky="nsew", padx=(0, 8))
         tk.Label(tcard2, text="File Types (by size)", font=FONT_UI_BOLD).pack(anchor="w", pady=(0, 6))
-        self.types_canvas = tk.Canvas(tcard2, height=150, highlightthickness=0, bd=0)
+        self.types_canvas = tk.Canvas(tcard2, height=160, highlightthickness=0, bd=0)
         self.types_canvas.pack(fill="x")
         self.types_canvas.bind("<Configure>", lambda e: self._draw_types())
 
