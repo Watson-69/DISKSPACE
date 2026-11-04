@@ -218,7 +218,7 @@ class DiskAnalyzerApp(tk.Tk):
         self.progress = ttk.Progressbar(s, mode="indeterminate")
         self.progress.pack(fill="x", pady=(4, 4), padx=10)
         self.status_label = tk.Label(s, textvariable=self.status_var, font=FONT_UI, anchor="w", justify="left",
-                                    wraplength=290, bg="#1E293B")
+                                    wraplength=280, bg="#1E293B")
         self.status_label.pack(fill="x", pady=(4, 8), padx=10)
 
         self._section(s, "📊  Quick Stats")
