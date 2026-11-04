@@ -254,7 +254,7 @@ class DiskAnalyzerApp(tk.Tk):
         dcard = tk.Frame(left_col, padx=12, pady=10, highlightthickness=1)
         dcard.pack(fill="x")
         tk.Label(dcard, text="Drive Usage", font=FONT_UI_BOLD).pack(anchor="w", pady=(0, 6))
-        self.donut_canvas = tk.Canvas(dcard, height=250, highlightthickness=0, bd=0)
+        self.donut_canvas = tk.Canvas(dcard, height=260, highlightthickness=0, bd=0)
         self.donut_canvas.pack(fill="x")
         self.donut_canvas.bind("<Configure>", lambda e: self._draw_tree(1.0 if not getattr(self, "_animating", False) else self._tree_progress))
 
