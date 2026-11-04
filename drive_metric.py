@@ -302,7 +302,7 @@ class DiskAnalyzerApp(tk.Tk):
             b._mode = mode
         self._view_buttons = [w for w in toggle.winfo_children() if isinstance(w, tk.Button)]
         cols = ("#", "Name", "Directory", "Type", "Size")
-        self.top_tree = ttk.Treeview(lcard, columns=cols, show="headings", height=8)
+        self.top_tree = ttk.Treeview(lcard, columns=cols, show="headings", height=9)
         self.top_tree.heading("#", text="#")
         self.top_tree.heading("Name", text="Name")
         self.top_tree.heading("Directory", text="Directory")
