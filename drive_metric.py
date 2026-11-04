@@ -189,7 +189,7 @@ class DiskAnalyzerApp(tk.Tk):
         path_row = tk.Frame(s, bd=0, highlightthickness=0, bg="#1E293B")
         path_row.pack(fill="x", pady=(4, 8), padx=10)
         self.path_entry = tk.Entry(path_row, textvariable=self.path_var, font=FONT_MONO, relief="flat", bd=0)
-        self.path_entry.pack(side="left", fill="x", expand=True, ipady=7, padx=(8, 6))
+        self.path_entry.pack(side="left", fill="x", expand=True, ipady=8, padx=(8, 6))
         self.browse_btn = self._button(path_row, "Browse", self.browse, width=8)
         self.browse_btn.pack(side="right")
 
