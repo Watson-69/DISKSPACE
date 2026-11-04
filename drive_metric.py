@@ -134,7 +134,7 @@ class DiskAnalyzerApp(tk.Tk):
         self.root_frame.pack(fill="both", expand=True)
 
         # Header
-        self.header = tk.Frame(self.root_frame, height=100, bd=0, highlightthickness=0, bg="#0F172A")
+        self.header = tk.Frame(self.root_frame, height=104, bd=0, highlightthickness=0, bg="#0F172A")
         self.header.pack(fill="x")
         self.header.pack_propagate(False)
         hdr = tk.Frame(self.header, bd=0, highlightthickness=0, bg="#0F172A")
